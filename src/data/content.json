@@ -1,0 +1,293 @@
+{
+  "skills": {
+    "frontend": 95,
+    "backend": 80,
+    "cybersecurity": 85,
+    "cloud": 75,
+    "database": 88,
+    "dataEngineering": 78,
+    "machineLearning": 65,
+    "design": 92,
+    "uiux": 90,
+    "illustration": 88
+  },
+  "techStack": [
+    { "name": "React", "category": "Frontend", "level": "Expert", "years": 3 },
+    { "name": "Next.js", "category": "Frontend", "level": "Expert", "years": 2 },
+    { "name": "TypeScript", "category": "Frontend", "level": "Expert", "years": 3 },
+    { "name": "JavaScript", "category": "Frontend", "level": "Expert", "years": 4 },
+    { "name": "Tailwind CSS", "category": "Frontend", "level": "Expert", "years": 2 },
+    { "name": "Python", "category": "Backend", "level": "Advanced", "years": 3 },
+    { "name": "Java", "category": "Backend", "level": "Intermediate", "years": 2 },
+    { "name": "Laravel", "category": "Backend", "level": "Advanced", "years": 2 },
+    { "name": "Node.js", "category": "Backend", "level": "Advanced", "years": 3 },
+    { "name": "PostgreSQL", "category": "Database", "level": "Advanced", "years": 3 },
+    { "name": "MySQL", "category": "Database", "level": "Advanced", "years": 3 },
+    { "name": "MongoDB", "category": "Database", "level": "Intermediate", "years": 1 },
+    { "name": "Docker", "category": "Cloud", "level": "Advanced", "years": 2 },
+    { "name": "Git", "category": "DevOps", "level": "Expert", "years": 4 },
+    { "name": "GitHub", "category": "DevOps", "level": "Expert", "years": 4 },
+    { "name": "Linux", "category": "Cloud", "level": "Advanced", "years": 3 },
+    { "name": "Keycloak", "category": "Security", "level": "Advanced", "years": 2 },
+    { "name": "MidPoint", "category": "Security", "level": "Intermediate", "years": 1 },
+    { "name": "Splunk", "category": "Security", "level": "Intermediate", "years": 1 },
+    { "name": "Grafana", "category": "Data", "level": "Intermediate", "years": 1 },
+    { "name": "Power BI", "category": "Data", "level": "Advanced", "years": 2 },
+    { "name": "Apache Kafka", "category": "Data", "level": "Intermediate", "years": 1 },
+    { "name": "Figma", "category": "Design", "level": "Expert", "years": 3 },
+    { "name": "Illustrator", "category": "Design", "level": "Advanced", "years": 3 },
+    { "name": "Photoshop", "category": "Design", "level": "Advanced", "years": 4 }
+  ],
+  "projects": [
+    {
+      "id": "p1",
+      "title": "Secure IAM Portal",
+      "category": "Hybrid",
+      "description": "Full-stack identity management portal with Keycloak SSO integration, custom RBAC engine, MFA enforcement, and a responsive dashboard. Designed, developed, secured, and deployed entirely solo.",
+      "tech": ["Next.js", "Keycloak", "Tailwind", "Docker", "PostgreSQL"],
+      "github": "https://github.com",
+      "demo": "https://example.com",
+      "featured": true,
+      "phases": ["Design", "Development", "Security", "Deployment"]
+    },
+    {
+      "id": "p2",
+      "title": "Vulnerability Scanner CLI",
+      "category": "Cybersecurity",
+      "description": "Automated network vulnerability scanner with Nmap integration, custom CVE correlation engine, and PDF report generation.",
+      "tech": ["Python", "Nmap", "Bash", "Docker"],
+      "github": "https://github.com",
+      "featured": false
+    },
+    {
+      "id": "p3",
+      "title": "SOC Monitoring Dashboard",
+      "category": "Cybersecurity",
+      "description": "Real-time Security Operations Center dashboard integrating Splunk logs, Grafana metrics, and custom alerting rules.",
+      "tech": ["Splunk", "Grafana", "Python", "Docker"],
+      "github": "https://github.com",
+      "demo": "https://example.com",
+      "featured": false
+    },
+    {
+      "id": "p4",
+      "title": "E-Commerce Platform",
+      "category": "Development",
+      "description": "Full-stack e-commerce platform with real-time inventory, payment gateway integration, and admin dashboard.",
+      "tech": ["Next.js", "Node.js", "PostgreSQL", "Stripe", "Tailwind"],
+      "github": "https://github.com",
+      "demo": "https://example.com",
+      "featured": false
+    },
+    {
+      "id": "p5",
+      "title": "Task Management System",
+      "category": "Development",
+      "description": "Kanban-style project management app with drag-and-drop, real-time collaboration via WebSocket, and team analytics.",
+      "tech": ["React", "Node.js", "MongoDB", "Socket.io"],
+      "github": "https://github.com",
+      "demo": "https://example.com",
+      "featured": false
+    },
+    {
+      "id": "p6",
+      "title": "Real-time Data Pipeline",
+      "category": "Data",
+      "description": "High-throughput ETL pipeline processing 10K+ events/sec with Apache Kafka, real-time transformations, and PostgreSQL sink.",
+      "tech": ["Python", "Kafka", "PostgreSQL", "Docker", "Grafana"],
+      "github": "https://github.com",
+      "featured": false
+    },
+    {
+      "id": "p7",
+      "title": "Sales Analytics Dashboard",
+      "category": "Data",
+      "description": "Interactive Power BI dashboard with DAX measures, drill-through reports, and automated data refresh from multiple sources.",
+      "tech": ["Power BI", "SQL", "Python", "Excel"],
+      "demo": "https://example.com",
+      "featured": false
+    },
+    {
+      "id": "p8",
+      "title": "FinTech Dashboard UI",
+      "category": "Design",
+      "description": "Premium financial dashboard UI/UX design with complex data visualization, dark mode, accessibility compliance, and design system.",
+      "tech": ["Figma", "Illustrator"],
+      "demo": "https://dribbble.com",
+      "featured": false,
+      "caseStudy": {
+        "problem": "Financial data is complex and overwhelming for non-technical users.",
+        "research": "Interviewed 15 finance professionals, analyzed 10 competing dashboards.",
+        "solution": "Created a clean, card-based interface with progressive disclosure and contextual tooltips."
+      }
+    },
+    {
+      "id": "p9",
+      "title": "Healthcare App Redesign",
+      "category": "Design",
+      "description": "Complete UX audit and redesign of a patient management application, improving task completion rate by 40%.",
+      "tech": ["Figma", "Maze", "Hotjar"],
+      "demo": "https://dribbble.com",
+      "featured": false,
+      "caseStudy": {
+        "problem": "Nurses spent 3x longer than necessary on patient check-in workflows.",
+        "research": "Conducted usability testing with 8 nurses across 3 hospitals.",
+        "solution": "Simplified the 7-step check-in to 3 steps with smart autofill and predictive fields."
+      }
+    },
+    {
+      "id": "p10",
+      "title": "Pixel Art RPG Assets",
+      "category": "Illustration",
+      "description": "Complete set of 200+ 16-bit pixel art assets including characters, environments, UI elements, and animations for a retro RPG.",
+      "tech": ["Aseprite", "Photoshop"],
+      "demo": "https://behance.net",
+      "featured": false
+    },
+    {
+      "id": "p11",
+      "title": "Brand Identity Collection",
+      "category": "Illustration",
+      "description": "Custom brand identity packages including logos, icons, mascots, and visual guidelines for 5+ indie startups.",
+      "tech": ["Illustrator", "Photoshop", "Figma"],
+      "demo": "https://behance.net",
+      "featured": false
+    },
+    {
+      "id": "p12",
+      "title": "Smart Campus App",
+      "category": "Hybrid",
+      "description": "Full-stack campus management app with room booking, attendance tracking, custom illustrations, and role-based access. Built from research to deployment.",
+      "tech": ["React", "Laravel", "MySQL", "Figma", "Docker"],
+      "github": "https://github.com",
+      "demo": "https://example.com",
+      "featured": true,
+      "phases": ["Research", "Design", "Development", "Security", "Deployment"]
+    }
+  ],
+  "cybersecurity": {
+    "certifications": [
+      { "name": "CompTIA Security+", "year": "2024", "status": "Achieved" },
+      { "name": "Google Cybersecurity Certificate", "year": "2024", "status": "Achieved" },
+      { "name": "TryHackMe Top 5%", "year": "2024", "status": "Active" }
+    ],
+    "domains": [
+      {
+        "title": "Identity & Access Management",
+        "description": "Keycloak SSO, MidPoint IGA, RBAC/ABAC policy design, MFA implementation, SAML/OIDC protocols.",
+        "tools": ["Keycloak", "MidPoint", "LDAP", "OAuth 2.0"],
+        "icon": "shield"
+      },
+      {
+        "title": "Penetration Testing",
+        "description": "Network reconnaissance, vulnerability scanning, web app pentesting, privilege escalation, reporting.",
+        "tools": ["Nmap", "Burp Suite", "Metasploit", "Wireshark"],
+        "icon": "crosshair"
+      },
+      {
+        "title": "Security Monitoring",
+        "description": "SIEM configuration, log analysis, alerting, incident response playbook design.",
+        "tools": ["Splunk", "Grafana", "ELK Stack", "Wazuh"],
+        "icon": "monitor"
+      },
+      {
+        "title": "CTF & Labs",
+        "description": "Active participant in Capture The Flag challenges and hands-on security labs.",
+        "tools": ["TryHackMe", "HackTheBox", "OverTheWire"],
+        "icon": "flag"
+      }
+    ]
+  },
+  "experience": [
+    {
+      "year": "2026",
+      "events": [
+        { "text": "Deployed Secure IAM Portal v2.0 with ABAC policies", "type": "release" },
+        { "text": "Freelance UI/UX Designer for 3 startup clients", "type": "work" }
+      ]
+    },
+    {
+      "year": "2025",
+      "events": [
+        { "text": "Joined CyberDef Corp as Security Engineer Intern", "type": "work" },
+        { "text": "Built SOC Monitoring Dashboard for real-time threat detection", "type": "project" },
+        { "text": "Achieved CompTIA Security+ Certification", "type": "cert" },
+        { "text": "Released Smart Campus App for university pilot program", "type": "release" }
+      ]
+    },
+    {
+      "year": "2024",
+      "events": [
+        { "text": "Started Information Systems degree at University", "type": "education" },
+        { "text": "Released Secure IAM Portal v1.0", "type": "release" },
+        { "text": "Won 2nd place in National Cybersecurity CTF", "type": "award" },
+        { "text": "Completed Google Cybersecurity Certificate", "type": "cert" }
+      ]
+    },
+    {
+      "year": "2023",
+      "events": [
+        { "text": "Built FinTech Dashboard UI — first major design project", "type": "project" },
+        { "text": "Started learning React and Next.js", "type": "education" },
+        { "text": "Created first pixel art collection (200+ assets)", "type": "project" }
+      ]
+    },
+    {
+      "year": "2022",
+      "events": [
+        { "text": "Learned HTML, CSS, JavaScript fundamentals", "type": "education" },
+        { "text": "First GitHub contribution", "type": "milestone" },
+        { "text": "Started digital illustration journey", "type": "milestone" }
+      ]
+    }
+  ],
+  "illustrations": [
+    { "id": "ill1", "title": "Cyber Samurai", "category": "Pixel Art", "color": "#F68E5F" },
+    { "id": "ill2", "title": "Neon City", "category": "Digital Art", "color": "#586BA4" },
+    { "id": "ill3", "title": "Robot Companion", "category": "Pixel Art", "color": "#CAFF8A" },
+    { "id": "ill4", "title": "Space Station", "category": "Digital Art", "color": "#F68E5F" },
+    { "id": "ill5", "title": "Forest Spirit", "category": "Illustration", "color": "#586BA4" },
+    { "id": "ill6", "title": "UI Icon Set", "category": "Icons", "color": "#CAFF8A" },
+    { "id": "ill7", "title": "Brand Mascots", "category": "Illustration", "color": "#F68E5F" },
+    { "id": "ill8", "title": "Retro Dungeon", "category": "Pixel Art", "color": "#586BA4" },
+    { "id": "ill9", "title": "Tech Patterns", "category": "Digital Art", "color": "#CAFF8A" }
+  ],
+  "githubStats": {
+    "totalCommits": 1847,
+    "totalRepos": 42,
+    "totalStars": 156,
+    "totalPRs": 89,
+    "topLanguages": [
+      { "name": "TypeScript", "percent": 38, "color": "#3178c6" },
+      { "name": "Python", "percent": 25, "color": "#3572A5" },
+      { "name": "JavaScript", "percent": 18, "color": "#f1e05a" },
+      { "name": "CSS", "percent": 10, "color": "#563d7c" },
+      { "name": "Java", "percent": 5, "color": "#b07219" },
+      { "name": "Shell", "percent": 4, "color": "#89e051" }
+    ],
+    "pinned": [
+      { "name": "secure-iam-portal", "description": "Full-stack IAM portal with Keycloak SSO", "language": "TypeScript", "stars": 34, "forks": 8 },
+      { "name": "vuln-scanner-cli", "description": "Automated network vulnerability scanner", "language": "Python", "stars": 28, "forks": 5 },
+      { "name": "smart-campus-app", "description": "Campus management with RBAC", "language": "TypeScript", "stars": 19, "forks": 3 },
+      { "name": "pixel-rpg-assets", "description": "200+ 16-bit pixel art game assets", "language": "N/A", "stars": 45, "forks": 12 },
+      { "name": "data-pipeline-kafka", "description": "Real-time ETL with Apache Kafka", "language": "Python", "stars": 15, "forks": 2 },
+      { "name": "dotfiles", "description": "My development environment configs", "language": "Shell", "stars": 15, "forks": 4 }
+    ],
+    "contributionData": [3,1,0,2,4,5,3,0,0,1,2,3,4,6,2,1,0,3,5,7,4,2,1,0,0,2,3,5,6,4,3,1,0,1,2,4,5,3,2,0,1,3,6,8,5,3,1,0,2,4,5,7]
+  },
+  "about": {
+    "bio": "I am a recent Information Systems graduate with a deep passion for the intersection of design, development, and cybersecurity. I believe that a truly great digital product must not only look stunning and function flawlessly but also be secure from the ground up.",
+    "goals": [
+      "Become a full-stack security engineer at a forward-thinking tech company",
+      "Contribute to open-source identity management projects",
+      "Build products that make complex security accessible to everyone"
+    ],
+    "interests": ["Pixel Art", "Retro Gaming", "CTF Challenges", "Open Source", "UI Design", "Coffee"],
+    "funFacts": [
+      "I have contributed to 42 repositories",
+      "My first line of code was print('Hello World') in Python",
+      "I can create a pixel art character in under 30 minutes",
+      "I have solved 150+ CTF challenges on TryHackMe"
+    ]
+  }
+}
