@@ -2,18 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Github, Linkedin, Mail, Menu, X, Terminal } from "lucide-react";
+import { Github, Linkedin, Mail, Menu, X, Database } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import ClickHouseButton from "@/components/ui/ClickHouseButton";
 
 const NAV_LINKS = [
-  { name: "Home", href: "#home" },
-  { name: "Projects", href: "#projects" },
+  { name: "Product", href: "#projects" },
   { name: "Security", href: "#security" },
-  { name: "Illustration", href: "#illustration" },
-  { name: "Experience", href: "#experience" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Developers", href: "#github" },
+  { name: "Company", href: "#about" },
 ];
 
 export default function TopNavigation() {
@@ -31,26 +29,26 @@ export default function TopNavigation() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-40 w-full transition-all duration-300",
+        "fixed top-0 z-40 w-full transition-all duration-300 h-16 flex items-center",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md border-b border-borderDark py-3 shadow-sm" 
-          : "bg-transparent py-5"
+          ? "bg-canvas/90 backdrop-blur-md border-b border-hairline shadow-sm" 
+          : "bg-canvas"
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="group flex items-center gap-2 font-pixel text-sm text-textMain hover:text-primary transition-colors">
-          <Terminal size={18} className="text-primary group-hover:animate-pulse" />
-          <span>&gt; VJ_</span>
+        <Link href="/" className="group flex items-center gap-2 font-inter font-bold text-lg text-text-main hover:text-primary transition-colors">
+          <Database size={20} className="text-primary" />
+          <span className="tracking-tight">Vincent.</span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-textMuted">
+        <nav className="hidden md:flex items-center gap-8 text-[14px] font-medium text-text-muted">
           {NAV_LINKS.map((link) => (
             <Link 
               key={link.name} 
               href={link.href}
-              className="hover:text-primary transition-colors hover:underline underline-offset-4 decoration-primary/50"
+              className="hover:text-text-main transition-colors"
             >
               {link.name}
             </Link>
@@ -59,28 +57,25 @@ export default function TopNavigation() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-3 text-textDim border-r border-borderDark pr-4">
-            <Link href="https://github.com" target="_blank" className="hover:text-textMain transition-colors">
+          <div className="flex items-center gap-4 text-text-muted border-r border-hairline pr-6">
+            <Link href="https://github.com/vincentjiu23" target="_blank" className="hover:text-text-main transition-colors">
               <Github size={18} />
             </Link>
-            <Link href="https://linkedin.com" target="_blank" className="hover:text-textMain transition-colors">
+            <Link href="https://www.linkedin.com/in/vincentjiu/" target="_blank" className="hover:text-text-main transition-colors">
               <Linkedin size={18} />
             </Link>
-            <Link href="mailto:contact@example.com" className="hover:text-textMain transition-colors">
+            <Link href="mailto:contact@example.com" className="hover:text-text-main transition-colors">
               <Mail size={18} />
             </Link>
           </div>
-          <Link 
-            href="/cv.pdf"
-            className="text-xs font-pixel text-primary border border-primary/50 px-3 py-1.5 rounded hover:bg-primary/10 transition-colors"
-          >
-            CV
-          </Link>
+          <ClickHouseButton variant="primary" as="a" href="#contact" className="ml-2">
+            Get Started
+          </ClickHouseButton>
         </div>
 
         {/* Mobile Toggle */}
         <button 
-          className="md:hidden text-textMain"
+          className="md:hidden text-text-main"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -94,23 +89,23 @@ export default function TopNavigation() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-background border-b border-borderDark py-4 px-6 md:hidden flex flex-col gap-4 shadow-xl"
+            className="absolute top-16 left-0 w-full bg-canvas border-b border-hairline py-4 px-6 md:hidden flex flex-col gap-4 shadow-xl"
           >
             {NAV_LINKS.map((link) => (
               <Link 
                 key={link.name} 
                 href={link.href}
-                className="text-textMuted hover:text-primary font-medium"
+                className="text-text-muted hover:text-text-main font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="h-px w-full bg-borderDark my-2" />
-            <div className="flex items-center gap-4 text-textMuted">
-              <Link href="https://github.com" target="_blank"><Github size={20} /></Link>
-              <Link href="https://linkedin.com" target="_blank"><Linkedin size={20} /></Link>
-              <Link href="mailto:contact@example.com"><Mail size={20} /></Link>
+            <div className="h-px w-full bg-hairline my-2" />
+            <div className="flex items-center gap-6 text-text-muted">
+              <Link href="https://github.com/vincentjiu23" target="_blank" className="hover:text-text-main"><Github size={20} /></Link>
+              <Link href="https://www.linkedin.com/in/vincentjiu/" target="_blank" className="hover:text-text-main"><Linkedin size={20} /></Link>
+              <Link href="mailto:contact@example.com" className="hover:text-text-main"><Mail size={20} /></Link>
             </div>
           </motion.div>
         )}

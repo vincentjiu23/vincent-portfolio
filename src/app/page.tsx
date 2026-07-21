@@ -1,5 +1,5 @@
 import HeroSection from "@/components/sections/HeroSection";
-import SkillsSection from "@/components/sections/SkillsSection";
+
 import TechStackSection from "@/components/sections/TechStackSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import CybersecuritySection from "@/components/sections/CybersecuritySection";
@@ -17,34 +17,33 @@ export default function Home() {
 
       {/* Divider */}
       <div className="container mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-borderDark to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
       </div>
 
-      <SkillsSection />
       <TechStackSection />
 
       <div className="container mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-borderDark to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
       </div>
 
       <PortfolioSection />
       <CybersecuritySection />
 
       <div className="container mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-borderDark to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
       </div>
 
       <IllustrationSection />
 
       <div className="container mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-borderDark to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
       </div>
 
       <ExperienceSection />
       <GitHubSection />
 
       <div className="container mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-borderDark to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-hairline to-transparent" />
       </div>
 
       <AboutSection />

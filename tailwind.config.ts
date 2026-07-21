@@ -9,35 +9,72 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0d1b2a",
-        primary: "#F68E5F",
-        secondary: "#586BA4",
-        highlight: "#CAFF8A",
-        textMain: "#F5F5F5",
-        textMuted: "#C9CED6",
-        textDim: "#8A919E",
-        card: "#363C4B",
-        borderDark: "rgba(255,255,255,0.08)",
+        canvas: "#0a0a0a",
+        primary: {
+          DEFAULT: "#faff69", // Electric Yellow
+          active: "#e6eb52",
+          disabled: "#3a3a1f",
+        },
+        surface: {
+          soft: "#121212",
+          card: "#1a1a1a",
+          elevated: "#242424",
+          yellowBand: "#faff69",
+        },
+        hairline: {
+          DEFAULT: "#2a2a2a",
+          strong: "#3a3a3a",
+        },
+        text: {
+          main: "#ffffff",
+          body: "#cccccc",
+          strong: "#e6e6e6",
+          muted: "#888888",
+          soft: "#5a5a5a",
+          onPrimary: "#0a0a0a",
+        },
+        accent: {
+          emerald: "#22c55e",
+          rose: "#ef4444",
+          blue: "#3b82f6",
+        },
+        // Kept for backward compatibility while migrating, will remove later
+        background: "#0a0a0a",
+        foreground: "#ffffff",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
-        display: ["var(--font-bebas-neue)", "sans-serif"],
-        pixel: ["var(--font-press-start-2p)", "monospace"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-press-start)", "monospace"], // Temporarily keeping for old code, will replace with JetBrains Mono conceptually
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      spacing: {
+        xxs: "4px",
+        xs: "8px",
+        sm: "12px",
+        md: "16px",
+        lg: "24px",
+        xl: "32px",
+        xxl: "48px",
+        section: "96px",
       },
-      animation: {
-        "blink-cursor": "blink 1s step-end infinite",
+      borderRadius: {
+        xs: "4px",
+        sm: "6px",
+        md: "8px",
+        lg: "12px",
+        pill: "9999px",
+      },
+      letterSpacing: {
+        tighter: "-0.05em",
+        tight: "-0.025em",
       },
       keyframes: {
-        blink: {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0" },
-        },
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        }
       },
+      animation: {
+        shimmer: 'shimmer 2s infinite',
+      }
     },
   },
   plugins: [],

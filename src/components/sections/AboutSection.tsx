@@ -2,41 +2,34 @@
 
 import React from "react";
 import content from "@/data/content.json";
+import CodeWindowCard from "@/components/ui/CodeWindowCard";
 import { motion } from "framer-motion";
 import { Target, Heart, Zap, Coffee } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function AboutSection() {
   return (
-    <section className="container mx-auto px-6 py-24" id="about">
+    <section className="container mx-auto px-6 py-section" id="about">
       <div className="flex flex-col gap-4 mb-12">
-        <h2 className="font-display text-4xl text-textMain tracking-wide">About Me</h2>
-        <div className="h-1 w-20 bg-primary"></div>
+        <h2 className="display-lg text-text-main max-w-2xl">Operator profile.</h2>
+        <p className="text-text-muted text-lg max-w-xl">
+          Background, interests, and objectives.
+        </p>
       </div>
 
-      <div className="max-w-4xl mx-auto">
-        {/* README style container */}
-        <div className="bg-card border border-borderDark rounded-lg overflow-hidden shadow-xl">
-          {/* File header */}
-          <div className="bg-background border-b border-borderDark px-6 py-3 flex items-center gap-3">
-            <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-              <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-              <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-            </div>
-            <span className="font-mono text-xs text-primary ml-2">README.md</span>
-          </div>
-
-          <div className="p-6 md:p-8 font-sans">
+      <div className="max-w-4xl">
+        <CodeWindowCard title="README.md">
+          <div className="p-4 md:p-8">
             {/* Bio */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h1 className="text-3xl font-display text-textMain mb-4 tracking-wide">
+              <h1 className="text-[32px] font-bold text-text-main mb-6 tracking-tight">
                 Hi, I&apos;m Vincent <span className="inline-block animate-bounce">👋</span>
               </h1>
-              <p className="text-textMuted leading-relaxed mb-8">{content.about.bio}</p>
+              <p className="text-text-body text-[16px] leading-relaxed mb-10 max-w-3xl">{content.about.bio}</p>
             </motion.div>
 
             {/* Career Goals */}
@@ -45,16 +38,16 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="mb-8"
+              className="mb-10"
             >
-              <h2 className="text-xl font-bold text-textMain mb-4 flex items-center gap-2">
-                <Target size={18} className="text-primary" /> Career Goals
+              <h2 className="text-[18px] font-bold text-text-main mb-4 flex items-center gap-3">
+                <Target size={20} className="text-primary" /> Objectives
               </h2>
-              <div className="flex flex-col gap-3 pl-4 border-l-2 border-primary/30">
+              <div className="flex flex-col gap-4 pl-5 border-l border-primary/30 ml-2">
                 {content.about.goals.map((goal, i) => (
-                  <div key={i} className="flex items-start gap-2 text-sm text-textMuted">
+                  <div key={i} className="flex items-start gap-3 text-[14px] text-text-muted">
                     <span className="text-primary mt-0.5">→</span>
-                    <span>{goal}</span>
+                    <span className="leading-relaxed">{goal}</span>
                   </div>
                 ))}
               </div>
@@ -66,14 +59,14 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="mb-8"
+              className="mb-10"
             >
-              <h2 className="text-xl font-bold text-textMain mb-4 flex items-center gap-2">
-                <Heart size={18} className="text-primary" /> Interests
+              <h2 className="text-[18px] font-bold text-text-main mb-4 flex items-center gap-3">
+                <Heart size={20} className="text-accent-rose" /> Interests
               </h2>
               <div className="flex flex-wrap gap-2">
                 {content.about.interests.map((interest, i) => (
-                  <span key={i} className="text-xs bg-background border border-borderDark rounded-full px-3 py-1.5 text-textMuted hover:text-primary hover:border-primary/30 transition-colors cursor-default">
+                  <span key={i} className="text-[12px] bg-canvas border border-hairline rounded-sm px-3 py-1.5 text-text-muted font-semibold hover:text-text-main hover:border-hairline-strong transition-colors cursor-default">
                     {interest}
                   </span>
                 ))}
@@ -87,20 +80,20 @@ export default function AboutSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <h2 className="text-xl font-bold text-textMain mb-4 flex items-center gap-2">
-                <Zap size={18} className="text-[#FFBD2E]" /> Fun Facts
+              <h2 className="text-[18px] font-bold text-text-main mb-4 flex items-center gap-3">
+                <Zap size={20} className="text-primary" /> Telemetry
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {content.about.funFacts.map((fact, i) => (
-                  <div key={i} className="bg-background border border-borderDark rounded-lg p-3 text-sm text-textMuted flex items-start gap-2">
-                    <Coffee size={14} className="text-primary shrink-0 mt-0.5" />
-                    <span>{fact}</span>
+                  <div key={i} className="bg-canvas border border-hairline rounded-md p-4 text-[13px] text-text-muted flex items-start gap-3">
+                    <Coffee size={16} className="text-primary shrink-0 mt-0.5" />
+                    <span className="leading-relaxed">{fact}</span>
                   </div>
                 ))}
               </div>
             </motion.div>
           </div>
-        </div>
+        </CodeWindowCard>
       </div>
     </section>
   );

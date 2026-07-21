@@ -4,99 +4,119 @@ import React, { useState } from "react";
 import content from "@/data/content.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-const TECH_CATEGORIES = ["All", ...Array.from(new Set(content.techStack.map((t) => t.category)))];
-
-const levelColor: Record<string, string> = {
-  Expert: "text-highlight bg-highlight/10 border-highlight/30",
-  Advanced: "text-primary bg-primary/10 border-primary/30",
-  Intermediate: "text-secondary bg-secondary/10 border-secondary/30",
-};
+import { ChevronDown } from "lucide-react";
 
 export default function TechStackSection() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  const { coreSkills } = content;
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
-  const filteredTech = content.techStack.filter(
-    (t) => activeCategory === "All" || t.category === activeCategory
-  );
+  const toggleCategory = (category: string) => {
+    setActiveCategory(activeCategory === category ? null : category);
+  };
 
   return (
-    <section className="container mx-auto px-6 py-24" id="techstack">
+    <section className="container mx-auto px-6 py-section" id="techstack">
       <div className="flex flex-col gap-4 mb-12">
-        <h2 className="font-display text-4xl text-textMain tracking-wide">Technology Stack</h2>
-        <div className="h-1 w-20 bg-primary"></div>
-        <p className="text-textMuted text-sm max-w-xl">Tools and technologies I use to build, secure, and design digital products.</p>
+        <h2 className="display-lg text-text-main">Core Proficiencies</h2>
+        <p className="text-text-muted text-lg max-w-xl">
+          An overview of my technical skills and tool stack mapped across various domains. Click on a category to see its application in my projects.
+        </p>
       </div>
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {TECH_CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={cn(
-              "px-3 py-1.5 text-xs font-mono rounded border transition-all duration-200",
-              activeCategory === cat
-                ? "bg-primary/20 border-primary/50 text-primary"
-                : "bg-card/30 border-borderDark text-textDim hover:text-textMuted hover:border-textDim/30"
-            )}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {coreSkills.map((skill, idx) => {
+          const isActive = activeCategory === skill.category;
 
-      {/* Grid */}
-      <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-        <AnimatePresence mode="popLayout">
-          {filteredTech.map((tech) => (
+          return (
             <motion.div
-              key={tech.name}
+              key={skill.category}
               layout
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.2 }}
-              onMouseEnter={() => setHoveredTech(tech.name)}
-              onMouseLeave={() => setHoveredTech(null)}
+              onClick={() => toggleCategory(skill.category)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5, layout: { duration: 0.3 } }}
               className={cn(
-                "relative group bg-card border border-borderDark rounded-lg p-4 cursor-default transition-all duration-300",
-                "hover:border-primary/40 hover:shadow-[0_0_20px_rgba(246,142,95,0.1)] hover:-translate-y-1"
+                "bg-surface-card border rounded-lg p-6 flex flex-col gap-4 cursor-pointer transition-colors overflow-hidden group",
+                isActive ? "border-primary" : "border-hairline hover:border-primary/50"
               )}
             >
-              {/* Terminal-style header */}
-              <div className="text-[9px] text-textDim font-mono mb-2 opacity-60">
-                $ which {tech.name.toLowerCase().replace(/\s+/g, "-")}
-              </div>
+              <motion.div layout className="flex justify-between items-start">
+                <div className="flex flex-col gap-1">
+                  <h3 className={cn(
+                    "text-[18px] font-bold transition-colors",
+                    isActive ? "text-primary" : "text-text-main group-hover:text-primary"
+                  )}>
+                    {skill.category}
+                  </h3>
+                  <p className="text-[14px] text-text-muted font-mono line-clamp-2">
+                    {skill.tools}
+                  </p>
+                </div>
+                <motion.div
+                  animate={{ rotate: isActive ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-1"
+                >
+                  <ChevronDown className="w-5 h-5 text-text-muted group-hover:text-primary transition-colors" />
+                </motion.div>
+              </motion.div>
 
-              {/* Tech Name */}
-              <div className="font-mono text-sm text-textMain font-bold group-hover:text-primary transition-colors">
-                {tech.name}
-              </div>
-
-              {/* Level Badge */}
-              <div className={cn("text-[9px] font-pixel mt-2 px-1.5 py-0.5 rounded border w-fit", levelColor[tech.level] || "text-textDim")}>
-                {tech.level}
-              </div>
-
-              {/* Tooltip on hover */}
               <AnimatePresence>
-                {hoveredTech === tech.name && (
+                {isActive && (
                   <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 5 }}
-                    className="absolute -bottom-12 left-1/2 -translate-x-1/2 bg-[#1a2332] border border-borderDark rounded px-3 py-1.5 text-[10px] font-mono text-textMuted whitespace-nowrap z-50 shadow-xl"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex flex-col gap-4"
                   >
-                    {tech.years} yr{tech.years > 1 ? "s" : ""} · {tech.category}
+                    <div className="h-px w-full bg-hairline/50 mt-2" />
+                    
+                    <p className="text-[13px] text-text-body leading-relaxed">
+                      {skill.summary}
+                    </p>
+
+                    <div className="flex flex-col gap-2 mt-2">
+                      <span className="text-[11px] font-bold text-text-soft uppercase tracking-wider">
+                        Related Projects
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {skill.relatedProjects?.map((project: string) => (
+                          <span 
+                            key={project} 
+                            className="text-[11px] font-mono text-text-muted bg-surface-elevated border border-hairline px-2.5 py-1 rounded-md"
+                          >
+                            {project}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
+
+              <motion.div layout className="flex flex-col gap-2 mt-auto pt-4">
+                <div className="flex justify-between items-center text-[13px] font-mono font-semibold">
+                  <span className="text-text-soft">Proficiency</span>
+                  <span className="text-primary">{skill.percentage}%</span>
+                </div>
+                <div className="w-full bg-canvas border border-hairline/50 h-2 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.percentage}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                    className="h-full bg-primary rounded-full relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer" />
+                  </motion.div>
+                </div>
+              </motion.div>
             </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+          );
+        })}
+      </div>
     </section>
   );
 }

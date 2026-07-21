@@ -1,148 +1,128 @@
-"use client";
-
 import React from "react";
-import content from "@/data/content.json";
-import TerminalWindow from "@/components/ui/TerminalWindow";
-import { motion } from "framer-motion";
-import { Star, GitFork, Github } from "lucide-react";
-import { cn } from "@/lib/utils";
+import GitHubSectionClient from "./GitHubSectionClient";
 
-const getContribColor = (count: number) => {
-  if (count === 0) return "bg-[#161b22]";
-  if (count <= 2) return "bg-highlight/20";
-  if (count <= 4) return "bg-highlight/40";
-  if (count <= 6) return "bg-highlight/60";
-  return "bg-highlight/90";
-};
+const GITHUB_USERNAME = "vincentjiu23";
+const CACHE_OPTIONS = { next: { revalidate: 3600 } }; // 1 hour cache
 
-export default function GitHubSection() {
-  return (
-    <section className="container mx-auto px-6 py-24" id="github">
-      <div className="flex flex-col gap-4 mb-12">
-        <h2 className="font-display text-4xl text-textMain tracking-wide">GitHub Activity</h2>
-        <div className="h-1 w-20 bg-primary"></div>
-      </div>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function safeFetch(url: string): Promise<any> {
+  try {
+    const res = await fetch(url, CACHE_OPTIONS);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
 
-      <div className="grid lg:grid-cols-3 gap-8">
-        {/* Left: Stats + Contribution Graph */}
-        <div className="lg:col-span-2 flex flex-col gap-6">
-          {/* Stats Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { label: "Commits", value: content.githubStats.totalCommits, color: "text-highlight" },
-              { label: "Repositories", value: content.githubStats.totalRepos, color: "text-primary" },
-              { label: "Stars Earned", value: content.githubStats.totalStars, color: "text-[#FFBD2E]" },
-              { label: "Pull Requests", value: content.githubStats.totalPRs, color: "text-secondary" },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card border border-borderDark rounded-lg p-4 text-center hover:border-primary/30 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <div className={cn("text-2xl font-bold font-display", stat.color)}>{stat.value}</div>
-                <div className="text-[10px] text-textDim uppercase mt-1">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
+export default async function GitHubSection() {
+  // Fetch all APIs concurrently for maximum performance
+  const [
+    userData,
+    reposData,
+    eventsData,
+    followersData,
+    followingData,
+    gistsData,
+  ] = await Promise.all([
+    safeFetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
+    safeFetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`),
+    safeFetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=30`),
+    safeFetch(`https://api.github.com/users/${GITHUB_USERNAME}/followers?per_page=100`),
+    safeFetch(`https://api.github.com/users/${GITHUB_USERNAME}/following?per_page=100`),
+    safeFetch(`https://api.github.com/users/${GITHUB_USERNAME}/gists?per_page=100`),
+  ]);
 
-          {/* Contribution Graph */}
-          <TerminalWindow title="contributions.sh">
-            <div className="flex flex-col gap-3">
-              <div className="text-xs text-textDim">$ git log --oneline --graph --all | wc -l</div>
-              <div className="flex flex-wrap gap-[3px]">
-                {content.githubStats.contributionData.map((count, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.01 }}
-                    className={cn(
-                      "w-3 h-3 rounded-[2px] transition-all duration-200 hover:ring-1 hover:ring-textMuted/50",
-                      getContribColor(count)
-                    )}
-                    title={`${count} contributions`}
-                  />
-                ))}
-              </div>
-              <div className="flex items-center gap-2 text-[10px] text-textDim mt-2">
-                <span>Less</span>
-                <div className="flex gap-[2px]">
-                  {[0, 1, 3, 5, 7].map((v, i) => (
-                    <div key={i} className={cn("w-3 h-3 rounded-[2px]", getContribColor(v))} />
-                  ))}
-                </div>
-                <span>More</span>
-              </div>
-            </div>
-          </TerminalWindow>
+  // --- Process Repos ---
+  const repos = Array.isArray(reposData) ? reposData : [];
+  const totalStars = repos.reduce((acc: number, r: { stargazers_count: number }) => acc + r.stargazers_count, 0);
+  const totalForks = repos.reduce((acc: number, r: { forks_count: number }) => acc + r.forks_count, 0);
 
-          {/* Language Breakdown */}
-          <TerminalWindow title="languages.sh">
-            <div className="flex flex-col gap-3">
-              <div className="text-xs text-textDim">$ tokei --sort lines .</div>
-              {/* Stacked bar */}
-              <div className="w-full h-3 rounded-full overflow-hidden flex">
-                {content.githubStats.topLanguages.map((lang, i) => (
-                  <div
-                    key={i}
-                    className="h-full transition-all duration-500"
-                    style={{ width: `${lang.percent}%`, backgroundColor: lang.color }}
-                    title={`${lang.name}: ${lang.percent}%`}
-                  />
-                ))}
-              </div>
-              {/* Legend */}
-              <div className="flex flex-wrap gap-4 mt-1">
-                {content.githubStats.topLanguages.map((lang, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: lang.color }} />
-                    <span className="text-textMuted">{lang.name}</span>
-                    <span className="text-textDim">{lang.percent}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </TerminalWindow>
-        </div>
+  // Language aggregation across all repos
+  const langMap: Record<string, number> = {};
+  repos.forEach((r: { language: string | null; size: number }) => {
+    if (r.language) {
+      langMap[r.language] = (langMap[r.language] || 0) + (r.size || 1);
+    }
+  });
+  const totalSize = Object.values(langMap).reduce((a, b) => a + b, 0);
+  const languages = Object.entries(langMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([name, size]) => ({
+      name,
+      percent: Math.round((size / totalSize) * 100 * 10) / 10,
+    }));
 
-        {/* Right: Pinned Repos */}
-        <div className="flex flex-col gap-4">
-          <div className="text-xs font-mono text-textDim mb-1">Pinned repositories</div>
-          {content.githubStats.pinned.map((repo, index) => (
-            <motion.a
-              key={repo.name}
-              href={`https://github.com/vjiu/${repo.name}`}
-              target="_blank"
-              rel="noreferrer"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-card border border-borderDark rounded-lg p-4 hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 group"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Github size={14} className="text-textDim" />
-                <span className="text-sm font-bold text-secondary group-hover:text-primary transition-colors">{repo.name}</span>
-              </div>
-              <p className="text-xs text-textMuted mb-3 leading-relaxed">{repo.description}</p>
-              <div className="flex items-center gap-4 text-[11px] text-textDim">
-                {repo.language !== "N/A" && (
-                  <span className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-secondary" />
-                    {repo.language}
-                  </span>
-                )}
-                <span className="flex items-center gap-1"><Star size={12} /> {repo.stars}</span>
-                <span className="flex items-center gap-1"><GitFork size={12} /> {repo.forks}</span>
-              </div>
-            </motion.a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  // Sort repos for display (by stars, then by updated)
+  const topStarred = [...repos]
+    .sort((a: { stargazers_count: number }, b: { stargazers_count: number }) => b.stargazers_count - a.stargazers_count)
+    .slice(0, 6)
+    .map((r: { name: string; description: string; language: string; stargazers_count: number; forks_count: number; html_url: string; updated_at: string; topics: string[] }) => ({
+      name: r.name,
+      description: r.description,
+      language: r.language,
+      stargazers_count: r.stargazers_count,
+      forks_count: r.forks_count,
+      html_url: r.html_url,
+      updated_at: r.updated_at,
+      topics: r.topics || [],
+    }));
+
+  const recentlyUpdated = [...repos]
+    .sort((a: { pushed_at: string }, b: { pushed_at: string }) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime())
+    .slice(0, 6)
+    .map((r: { name: string; description: string; language: string; stargazers_count: number; forks_count: number; html_url: string; updated_at: string; topics: string[] }) => ({
+      name: r.name,
+      description: r.description,
+      language: r.language,
+      stargazers_count: r.stargazers_count,
+      forks_count: r.forks_count,
+      html_url: r.html_url,
+      updated_at: r.updated_at,
+      topics: r.topics || [],
+    }));
+
+  // --- Process Events ---
+  const events = Array.isArray(eventsData) ? eventsData : [];
+  const activityFeed = events.slice(0, 15).map((e: { type: string; repo: { name: string }; created_at: string; payload: { commits?: { message: string }[]; action?: string; ref?: string; ref_type?: string } }) => ({
+    type: e.type,
+    repo: e.repo?.name || "",
+    created_at: e.created_at,
+    message: e.payload?.commits?.[0]?.message || e.payload?.action || "",
+    ref: e.payload?.ref || "",
+    ref_type: e.payload?.ref_type || "",
+  }));
+
+  // --- Assemble Data ---
+  const githubData = {
+    username: GITHUB_USERNAME,
+    profile: {
+      avatar_url: userData?.avatar_url || "",
+      name: userData?.name || GITHUB_USERNAME,
+      bio: userData?.bio || "",
+      location: userData?.location || "",
+      blog: userData?.blog || "",
+      company: userData?.company || "",
+      created_at: userData?.created_at || "",
+      public_repos: userData?.public_repos || 0,
+      public_gists: userData?.public_gists || 0,
+      followers: userData?.followers || 0,
+      following: userData?.following || 0,
+    },
+    stats: {
+      totalRepos: repos.length,
+      totalStars,
+      totalForks,
+      totalGists: Array.isArray(gistsData) ? gistsData.length : 0,
+      followersCount: Array.isArray(followersData) ? followersData.length : (userData?.followers || 0),
+      followingCount: Array.isArray(followingData) ? followingData.length : (userData?.following || 0),
+    },
+    languages,
+    topStarred,
+    recentlyUpdated,
+    activityFeed,
+  };
+
+  return <GitHubSectionClient data={githubData} />;
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import TerminalWindow from "@/components/ui/TerminalWindow";
-import PixelButton from "@/components/ui/PixelButton";
+import CodeWindowCard from "@/components/ui/CodeWindowCard";
+import ClickHouseButton from "@/components/ui/ClickHouseButton";
 import { motion } from "framer-motion";
 
 const TITLES = [
@@ -41,83 +41,68 @@ export default function HeroSection() {
   }, [typedTitle, isDeleting, titleIndex]);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden" id="home">
-      {/* Background Decor */}
-      <div className="absolute inset-0 z-0 opacity-10" style={{
-        backgroundImage: "radial-gradient(circle at 25% 25%, rgba(246,142,95,0.15) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(88,107,164,0.15) 0%, transparent 50%)"
-      }}></div>
-      
-      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Left Side: Content */}
+    <section className="relative min-h-[90vh] flex items-center pt-24 pb-16 overflow-hidden bg-canvas" id="home">
+      <div className="container mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+        {/* Left Side: 7 Columns */}
         <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="lg:col-span-7 flex flex-col gap-8"
         >
-          <TerminalWindow title="bash" className="max-w-md">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-highlight">$</span>
-                <span className="text-textMain">whoami</span>
-              </div>
-              <div className="text-primary font-bold text-xl mb-4">Vincent Jiu</div>
-              <div className="flex items-center gap-2 h-6">
-                <span className="text-highlight">$</span>
-                <span className="text-textMuted">{typedTitle}</span>
-                <span className="w-2 h-4 bg-textMuted animate-blink-cursor"></span>
-              </div>
-            </div>
-          </TerminalWindow>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-card border border-hairline rounded-pill text-xs font-semibold text-text-body w-fit">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            System Online
+          </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display leading-tight tracking-wide">
-            Designing, Developing, <br/> and Securing <br/> <span className="text-primary">Digital Experiences.</span>
+          <h1 className="display-xl text-text-main max-w-3xl">
+            Designing, developing, and securing digital experiences.
           </h1>
 
-          <p className="text-textMuted max-w-lg leading-relaxed">
-            I build full-stack applications with an emphasis on robust security, 
-            sleek UI/UX design, and seamless performance. Welcome to my digital workspace.
+          <div className="text-xl font-medium text-text-body h-8 flex items-center gap-2">
+            <span className="text-primary font-bold">Vincent Jiu</span>
+            <span className="text-hairline-strong">/</span>
+            <span>{typedTitle}</span>
+            <span className="w-2 h-5 bg-text-muted animate-blink-cursor"></span>
+          </div>
+
+          <p className="text-text-muted text-lg max-w-xl leading-relaxed">
+            I build full-stack applications with an emphasis on robust security, sleek UI/UX design, and seamless performance. Welcome to my digital workspace.
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-4">
-            <PixelButton variant="primary">View Projects</PixelButton>
-            <PixelButton variant="secondary">Download CV</PixelButton>
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            <ClickHouseButton variant="primary" as="a" href="#projects">
+              View Projects
+            </ClickHouseButton>
+            <ClickHouseButton variant="secondary" as="a" href="#contact">
+              Contact Me
+            </ClickHouseButton>
           </div>
         </motion.div>
 
-        {/* Right Side: Avatar / Floating Elements */}
+        {/* Right Side: 5 Columns */}
         <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative h-[400px] flex items-center justify-center"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+          className="lg:col-span-5"
         >
-          {/* Main Avatar / Centerpiece */}
-          <div className="w-64 h-64 bg-card border border-borderDark rounded-lg flex items-center justify-center shadow-2xl relative z-20">
-            <div className="font-pixel text-primary text-xl">&gt; VJ_</div>
-          </div>
-
-          {/* Floating elements */}
-          <motion.div 
-            animate={{ y: [0, -15, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute top-10 right-10 z-30"
-          >
-            <div className="bg-[#FFBD2E] p-2 rounded shadow-lg font-pixel text-[10px] text-black transform rotate-12">
-              Lvl 99 Dev
-            </div>
-          </motion.div>
-
-          <motion.div 
-            animate={{ y: [0, 20, 0] }}
-            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-10 left-10 z-30"
-          >
-            <TerminalWindow title="status.log" className="w-48 text-xs bg-black/80 backdrop-blur">
-              <span className="text-green-400">System Online.</span><br/>
-              <span className="text-textDim">All services running.</span>
-            </TerminalWindow>
-          </motion.div>
+          <CodeWindowCard title="init.ts" className="shadow-2xl shadow-black/50">
+            <pre className="text-sm">
+              <code>
+                <span className="text-accent-rose">import</span> {'{'} Developer, Designer {'}'} <span className="text-accent-rose">from</span> <span className="text-accent-emerald">&apos;@vincent/core&apos;</span>;<br/>
+                <span className="text-accent-rose">import</span> {'{'} Security {'}'} <span className="text-accent-rose">from</span> <span className="text-accent-emerald">&apos;@vincent/sec&apos;</span>;<br/>
+                <br/>
+                <span className="text-accent-blue">const</span> profile = <span className="text-accent-blue">new</span> Developer({'{'}<br/>
+                {'  '}name: <span className="text-accent-emerald">&apos;Vincent Jiu&apos;</span>,<br/>
+                {'  '}focus: [<span className="text-accent-emerald">&apos;Frontend&apos;</span>, <span className="text-accent-emerald">&apos;Fullstack&apos;</span>, <span className="text-accent-emerald">&apos;Security&apos;</span>],<br/>
+                {'  '}location: <span className="text-accent-emerald">&apos;Jakarta, ID&apos;</span><br/>
+                {'}'});<br/>
+                <br/>
+                profile.<span className="text-primary">deploy</span>();
+              </code>
+            </pre>
+          </CodeWindowCard>
         </motion.div>
       </div>
     </section>
