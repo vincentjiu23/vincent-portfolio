@@ -23,7 +23,7 @@ export default function BootSequence({ onComplete }: { onComplete: () => void })
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: NodeJS.Timeout | undefined;
     
     // Quick loop to show logs line by line
     const showLogs = async () => {
@@ -41,7 +41,7 @@ export default function BootSequence({ onComplete }: { onComplete: () => void })
       setIsFadingOut(true);
       
       // Wait for fade out animation
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         onComplete();
       }, 800);
     };
